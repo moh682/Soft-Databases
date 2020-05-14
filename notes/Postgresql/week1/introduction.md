@@ -78,7 +78,14 @@ As we can see Manufacturer country are dependent on Manufacturer, and can cause 
 Ut means we cannot move to third normal form without completing the first normal form.
 
 *It doesnt have Transitive Dependancy* 
-It is when a table/column is dependent on a column that is dependent on another column.
+It is when a table/column is dependent on a column that is dependent on another column. in short it means that a column is dependent on a column that is depended on a column, in one table. And that when editing can lead to unconsistency. 
+
+<center>
+	(x -> y -> z) in one table
+</center>
+
+That is transitive dependancy
+
 <a href="https://www.youtube.com/watch?v=_K7fcFQowy8" > This is a great demonstration on Transitive Dependancy and how to spot them.</a>  
 
 
@@ -95,13 +102,45 @@ This Normal form is a higher level of the third form, and deals with anomalies n
 
 
 ### Database Denormalization
+Denormalization is changing a normalized database inchange of some performance gain. Usually it is used to increase the performance of the read functionality by making redundant data in the database. 
 
-
+An example for using denormalization in a database is, if the database is seperated on two different disks. In that case it will take a toll on the performance to retrieve and join tables. In that case it makes sence to denormalize the database and have redundant data to increase performance.
 
 ##### Functional Dependancy
+
+Functional Dependancy is a relational between two attributes typically between the primary key and other non-key attributes within a table. 
+
+An example in the following tables.
+
+|primary_key|name|number|
+|-|-|-|
+|1|moe|123131|
+
+in the above example name is functional dependant on the primary key and will be drawned like the following
+
+<center>
+	 ( primary_key -> name )
+</center>
 ##### Database Indexing
+
+A database indexing is a data structure that improves the retrieval of data. 
+
 ##### View 
+
+View have some benefist, some of them are:
+- Security
+- Simplicity
+
+**Security**
+When creating a view on a table, you can specify which of the attributes in the table are to be shown, this could be that the table has an attribute like password that we do not want users to retrieve from the database, or other kind of information. 
+
+**Simplicity**
+You can also create views on complex join queries, So later on you dont have to redo the whole query, you just have to write the identifier that is for the view.
+
 ##### Transaction
+
+Transaction is a sequence of operations normally being one or more statements. Transactions can contain logic and have rollbacks to abort the transaction. Transactions can be when the logic can have critical malfunction which should result in the whole transaction being aborted. 
+
 ###### ACID
 ACID which stands for Atomic Consistent Isolated Durability, is about insuring the data remaining consistance despite any failures.
 
@@ -117,9 +156,9 @@ This mean that current transactions are not effected by other transactions, like
 **Durability**
 This mean after the transaction has succeeded the result would remain in the system permanently. 
 
-##### Database Denormalization
-
 ##### ER-Diagram
+
+ER diagrams used to design the database and demonstrate its relations and attributes for the tables. It gives great overview the database.
 
 ##### Stick words
 
