@@ -1,57 +1,23 @@
 # HBase Database
 
-## Intended learning outcomes
-**To be able to explain the difference between relational and non-relational databases.**
-**To get fimiliar with the various types of non-relational databses.**
-**To be able to make a choice of database depending on the task and requirements.**
-**To get skills in converting data between SQL and NoSQL formats.**
+Hbase is a database used for heavy duties. It's described like a nail gun. You wont use nail gun for small tasks. Hbase is best used when the server has gigabytes and gigabytes of data. In fact if you dont have that much, you are probably better of selecting another database.
 
-## Agenda
-**NoSQL vs SQL**
-**NoSQL database types**
-**NoSQL in SQL DBMS**
-
-## What is SQL Database
-* Relational Database has a well organized structure of data stored in related tables
-* Providing fast access and retrieval of data from multiple tables
-* ACID features
-* * Atomicity - ensures that transactions with data are either completed, or rolled back
-* * Consisstency - after the transactions are completed the data is still consistent and integral
-* * Isolation - concurrent operations are isolated from each other
-* * Durability - the effect of the operations is available and secured
-
-## SQL database is not sufficient
-For supporting large applications that
-* * Needs replication or sefmentation
-* * Is too complex to maintain
-* * Acid rules are not achievable in distributed environments
-
-## NoSQL database is
-* * ***Not*** Relational database
-* * Not only SQL
-* * NoSQL does not define what it is, but what it isn't
-
-## Why NoSQL? 
-** The quantity of collected data grows dramatically
-** Modern data is unstructured and social
-** Impossible to organize and store it in relational structures
-
-Web Application Data grows exponentially based on Business Data Transaction.
-<a href="../images/appDataGrowth.png" />
+### Hbase at first glance
+Looks like a relational database because the terminology is very similiar.
 
 
-## NoSQL can help
-**Designed for the need of very large data stores
-* **such as Google or Facebook**
-* **Data comes frequently**
-* **Scaling required permanently**
-* **fixed schema not known**
-* **Individual data records may not matter**
-**Data operations not complicated**
-* **Mostly logs and reducing or aggregation**
-
-## Cap Theorem vs Acid Rules
+### why use hbase
+hbase have a schema fofr performance gain
+hbase does not scale down
+hbase have versioning
+compression
+garbage collecting ( for expired data )
+hbase have atomicity at the row level, meaning it have the "either all or nothing", like in Relational-databases
+searching in database is where hbase truly excels, this is also why its better to use when we have a lot of data
 
 
 
-
+### keys
+- hbase is a column-oriented database
+- based on Bigtable, which is developed by google.
+- hbase designed to be fault tolerant through hardware or network. Hbase can recover becuase it uses both *write-ahead logging*. It sets it in memory before its written, so later the files can be used to recover the nodes, and *ditributed configuration* which mean nodes can rely on each other for configuration than on a centralized source.
