@@ -1,51 +1,27 @@
 import express from 'express';
-import neo4j from 'neo4j-driver';
+import { UserMapper } from '../mappers/UserMapper';
+
 const route = express();
-
-var driver = neo4j.driver(
-    'bolt://localhost',
-    neo4j.auth.basic('neo4j', 'password')
-)
-const session = driver.session()
-
-
+const userMapper = new UserMapper();
 route.post('/create', async (req, res, next) => {
-    try {
-        await session.writeTransaction(tx =>
-            tx.run(
-                'CREATE(n:user{username: $userNameParam, password: $userPasswordParam}) return n.username',
-                {
-                    userNameParam: req.body.userName,
-                    userPasswordParam: req.body.userPassword
-                },
-            )
-        )
-        return res.json(`added ${req.body.userName}`)
-    } finally {
-        await session.close()
-    }
-    // on application exit:
-    await driver.close()
+  const { userName, password } = req.body;
+
+  try {
+    await userMapper.create(userName, password);
+    res.json(`added ${req.body.userName}`);
+  } catch (error) {
+    return res.sendStatus(500);
+  }
 });
 
 route.post('/follow', async (req, res, next) => {
-    try {
-        await session.writeTransaction(tx =>
-            tx.run(
-                'Match(a:user{username: $userNameParam1}),(b:user{username: $userNameParam2}) MERGE(a)-[r:FOLLOW]->(b) return a,b',
-                {
-                    userNameParam1: req.body.userName,
-                    userNameParam2: req.body.userToFollow
-                },
-            )
-        )
-        return res.json(`${req.body.userName} follows ${req.body.userToFollow}`)
-    } finally {
-        await session.close()
-    }
-    // on application exit:
-    await driver.close()
+  const { userName, usertoFollow } = req.body;
+  try {
+    await userMapper.create(userName, usertoFollow);
+    return res.json(`${req.body.userName} follows ${req.body.userToFollow}`);
+  } catch (error) {
+    return res.sendStatus(500);
+  }
 });
-
 
 export { route };
