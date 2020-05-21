@@ -1,14 +1,27 @@
 import { connection } from '../services/DBConnector';
+import { IUser } from '../interfaces/IUser';
 
 class UserMapper {
   create = async (username: string, password: string) => {
     return new Promise(async resolve => {
       await connection.writeTransaction(tx =>
-        tx.run('CREATE(n:user{username: $userNameParam, password: $userPasswordParam}) return n.username', {
+        tx.run('CREATE(n:user{username: $userNameParam, password: $userPasswordParam}) return n', {
           userNameParam: username,
           userPasswordParam: password,
         }),
       );
+      resolve();
+    }).finally(async () => await connection.close());
+  };
+
+  find = async (username: string) => {
+    return new Promise(async resolve => {
+      await connection.writeTransaction(tx => {
+        const res = tx.run('MATH(n:user{username: $userNameParam}) return n', {
+          userNameParam: username,
+        });
+        console.log(res);
+      });
       resolve();
     }).finally(async () => await connection.close());
   };

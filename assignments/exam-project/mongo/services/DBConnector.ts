@@ -26,13 +26,13 @@ export class DBConnector {
 }
 
 mongoose.connection.on('connected', function () {
-  console.log(colors.green('Mongoose is connected'));
+  console.log(colors.green('MongoDB is connected'));
 });
 
 mongoose.connection.on('disconencted', function () {
-  console.log(colors.blue('Mongoose disconnected'));
+  console.log(colors.blue('MongoDB disconnected'));
 });
 
 mongoose.connection.on('err', function (err) {
-  console.log(colors.red('Mongoose connction err: '), err);
+  console.log(colors.red('MongoDB connction err: '), err);
 });

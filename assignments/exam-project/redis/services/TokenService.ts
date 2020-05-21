@@ -8,7 +8,12 @@ class TokenService {
     });
   };
   verify = (token: string): boolean => {
-    const payload = verify(token, TOKEN_SECRET);
+    let payload: Object;
+    try {
+      payload = verify(token, TOKEN_SECRET);
+    } catch (e) {
+      return false;
+    }
     if (!payload) return false;
     return true;
   };

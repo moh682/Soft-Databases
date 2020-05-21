@@ -5,3 +5,6 @@ export const MONGO_DATABASE = 'posts';
 export const REDIS_PASSWORD = 'password';
 export const REDIS_HOST = 'localhost';
 export const TOKEN_SECRET = ')OnGC7l@GMb!AL%1h;"sl]~8]L4Bw_';
+export const MONGO_API = `localhost:${MONGO_PORT}`;
+export const REDIS_API = `localhost:${REDIS_PORT}`;
+export const NEO4J_API = `localhost:${NEO4J_PORT}`;
