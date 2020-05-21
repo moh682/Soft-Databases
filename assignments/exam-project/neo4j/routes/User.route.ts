@@ -4,10 +4,10 @@ import { UserMapper } from '../mappers/UserMapper';
 const route = express();
 const userMapper = new UserMapper();
 route.post('/create', async (req, res, next) => {
-  const { userName, password } = req.body;
+  const { userName, userPassword } = req.body;
 
   try {
-    await userMapper.create(userName, password);
+    await userMapper.create(userName, userPassword);
     res.json(`added ${req.body.userName}`);
   } catch (error) {
     return res.sendStatus(500);
