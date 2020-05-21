@@ -1,6 +1,6 @@
 import express from 'express';
 import { REDIS_PORT } from '../constants';
-import { client } from './services/DBConnector';
+import { client } from './services/DBConnectorService';
 import { AuthenticationRoute } from './routes/Authentication.route';
 client.PING;
 

@@ -1,4 +1,4 @@
-import { client } from '../services/DBConnector';
+import { client } from '../services/DBConnectorService';
 class SessionMapper {
   get = async (key: string): Promise<string> => {
     return new Promise(resolve => {
