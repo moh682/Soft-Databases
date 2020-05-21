@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:all": "concurrently \"npm run start:mongo\" \"npm run start:redis \" \"npm run start:neo4j \"",
+    "start:all": "concurrently \"npm run start:mongo\" \"npm run start:redis\" \"npm run start:neo4j\" \"npm run start:redis-server\"",
     "start:mongo": "nodemon -e ts,js --exec ts-node ./mongo/server.ts",
     "start:redis": "nodemon -e ts,js --exec ts-node ./redis/server.ts",
-    "start:neo4j": "nodemon -e ts,js --exec ts-node ./neo4j/server.ts"
+    "start:neo4j": "nodemon -e ts,js --exec ts-node ./neo4j/server.ts",
+    "start:redis-server": "redis-server"
   },
   "keywords": [],
   "author": "",
@@ -20,12 +21,14 @@
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.15",
     "neo4j-driver": "^4.0.2",
-    "node": "^14.2.0"
+    "node": "^14.2.0",
+    "redis": "^3.0.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.6",
     "@types/mongodb": "^3.5.18",
     "@types/mongoose": "^5.7.21",
-    "@types/node": "^14.0.4"
+    "@types/node": "^14.0.4",
+    "@types/redis": "^2.8.21"
   }
 }
