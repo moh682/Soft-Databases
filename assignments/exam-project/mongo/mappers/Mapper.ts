@@ -24,7 +24,7 @@ export class Mapper<T, U extends Document> {
   public async getOneByCustom(object: T): Promise<T> {
     return (await this.model.findOne(object)) as any;
   }
-  public async getManyByCustom(object: T, conditional?: any): Promise<T[]> {
+  public async getManyByCustom(object: T): Promise<T[]> {
     return (await this.model.find(object)) as any;
   }
 }
