@@ -16,5 +16,4 @@ It can have multiple purposes. I will mension some of them below
 
 ### Words definition
 - **granulation**: *Grouping by similarities*.
-- ****: *Grouping by similarities*.
 - **granulation**: *Grouping by similarities*.
