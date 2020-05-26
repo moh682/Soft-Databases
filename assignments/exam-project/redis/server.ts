@@ -14,7 +14,7 @@ const server = express();
 server.use(bodyParser.json());
 
 server.use('/auth', AuthenticationRoute);
-server.use('/logs', LoggerRoute);
+server.use('/logs', AuthenticationMiddleware, LoggerRoute);
 server.use('/post', AuthenticationMiddleware, PostRoute);
 server.use('/user', AuthenticationMiddleware, UserRoute);
 

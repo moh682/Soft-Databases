@@ -3,7 +3,7 @@ import { sign, verify, decode } from 'jsonwebtoken';
 
 class TokenService {
   create = (data: Object) => {
-    return sign(data, TOKEN_SECRET, {
+    return sign({ ...data }, TOKEN_SECRET, {
       issuer: 'exam-project',
     });
   };

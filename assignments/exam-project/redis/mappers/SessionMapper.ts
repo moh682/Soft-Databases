@@ -12,7 +12,10 @@ class SessionMapper {
     return new Promise(resolve => {
       client.set(key, value, (error, reply) => {
         if (error) throw new Error(error.message);
-        resolve(true);
+        client.expire(key, 60 * 60 * 12, (error, reply) => {
+          if (error) throw new Error(error.message);
+          resolve(true);
+        });
       });
     });
   };

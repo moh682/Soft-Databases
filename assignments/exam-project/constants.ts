@@ -22,3 +22,4 @@ export const SQL_DATABASE = 'db_exam';
 export const SQL_API = `http://localhost:${SQL_PORT}`;
 
 export const TOKEN_SECRET = ')OnGC7l@GMb!AL%1h;"sl]~8]L4Bw_';
+export const UNIQUE_SERVER_NAME = 'redis-server';

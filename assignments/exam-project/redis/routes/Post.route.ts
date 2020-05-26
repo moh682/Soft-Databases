@@ -1,6 +1,8 @@
 import express from 'express';
-import fetch from 'node-fetch';
+import { cyan } from 'colors';
 import { MONGO_API } from '../../constants';
+import { FetchService } from '../../services/FetchService';
+const { get, post, delete: deleteFetch } = new FetchService();
 import { log } from '../utils';
 const route = express();
 
@@ -8,7 +10,7 @@ route.get('/find/id/:id', async (req, res, next) => {
   const { id } = req.params;
   log(req.method, req.body);
   try {
-    const postId = await fetch(`${MONGO_API}/post/find/id/${id}`, { headers: { Origin: 'redis-server' } });
+    const postId = await get(`${MONGO_API}/post/find/id/${id}`).then(response => response.json());
     return res.json(postId);
   } catch (error) {
     return res.send('Error occured');
@@ -18,9 +20,13 @@ route.get('/find/id/:id', async (req, res, next) => {
 route.get('/find/all', async (req, res, next) => {
   log(req.method, req.body);
   try {
-    const posts = await fetch(`${MONGO_API}/post/find/all`, { headers: { Origin: 'redis-server' } });
+    const posts = await get(`${MONGO_API}/post/find/all`).then(response => {
+      return response.json();
+    });
+    console.log(cyan(posts));
     return res.json(posts);
   } catch (error) {
+    console.log(error);
     return res.send('Error occured');
   }
 });
@@ -29,7 +35,7 @@ route.get('/find/all/id/:id', async (req, res, next) => {
   log(req.method, req.body);
   const { id } = req.params;
   try {
-    const postId = await fetch(`${MONGO_API}/post/find/all/id/${id}`, { headers: { Origin: 'redis-server' } });
+    const postId = await get(`${MONGO_API}/post/find/all/id/${id}`).then(response => response.json());
     return res.json(postId);
   } catch (error) {
     return res.send('Error occured');
@@ -38,16 +44,8 @@ route.get('/find/all/id/:id', async (req, res, next) => {
 
 route.post('/create', async (req, res, next) => {
   log(req.method, req.body);
-  console.log('isCreating');
   try {
-    const postId = await fetch(`${MONGO_API}/post/create`, {
-      method: 'POST',
-      body: JSON.stringify(req.body),
-      headers: {
-        'Content-Type': 'Application/json',
-        Origin: 'redis-server',
-      },
-    }).then(response => {
+    const postId = await post(`${MONGO_API}/post/create`, req.body).then(response => {
       return response;
     });
     return res.json({ id: postId });
@@ -58,16 +56,8 @@ route.post('/create', async (req, res, next) => {
 
 route.delete('/delete', async (req, res, next) => {
   log(req.method, req.body);
-  const { content, owner } = req.body;
   try {
-    const postId = await fetch(`${MONGO_API}/post/delete`, {
-      method: 'delete',
-      body: JSON.stringify(req.body),
-      headers: {
-        'Content-Type': 'Application/json',
-        Origin: 'redis-server',
-      },
-    });
+    const postId = await deleteFetch(`${MONGO_API}/post/delete`, req.body).then(response => response.json());
     return res.json({ id: postId });
   } catch (error) {
     return res.send('Error occured');

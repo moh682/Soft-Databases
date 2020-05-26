@@ -4,10 +4,10 @@ import { UserMapper } from '../mappers/UserMapper';
 const route = express();
 const userMapper = new UserMapper();
 route.post('/create', async (req, res, next) => {
-  const { userName, userPassword } = req.body;
+  const { username, password } = req.body;
   try {
-    await userMapper.create(userName, userPassword);
-    return res.json(`added ${req.body.userName}`);
+    const s = await userMapper.create(username, password);
+    return res.json(s);
   } catch (error) {
     return res.sendStatus(500);
   }
@@ -17,6 +17,15 @@ route.get('/find/username/:username', async (req, res, next) => {
   const { username } = req.params;
   try {
     const user = await userMapper.find(username);
+    return res.json(user || {});
+  } catch (error) {
+    return res.sendStatus(500);
+  }
+});
+
+route.get('/find/all', async (req, res, next) => {
+  try {
+    const user = await userMapper.findAll();
     return res.json(user);
   } catch (error) {
     return res.sendStatus(500);
@@ -24,10 +33,11 @@ route.get('/find/username/:username', async (req, res, next) => {
 });
 
 route.post('/follow', async (req, res, next) => {
-  const { userName, usertoFollow } = req.body;
+  const { username, following } = req.body;
   try {
-    await userMapper.create(userName, usertoFollow);
-    return res.json(`${req.body.userName} follows ${req.body.userToFollow}`);
+    const response: any = await userMapper.follow(username, following);
+    if (response.records.length === 0) return res.sendStatus(400);
+    return res.sendStatus(200);
   } catch (error) {
     return res.sendStatus(500);
   }
