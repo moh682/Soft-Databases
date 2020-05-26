@@ -13,7 +13,7 @@ export default class LoggingMapper {
   }
   public async getLast24Hours(): Promise<ILogger> {
     return new Promise((resolve, reject) => {
-      getPool().query("SELECT * FROM logs WHERE date >= NOW() - '1 day'::INTERVAL", (error, result) => {
+      getPool().query("SELECT * FROM logs WHERE date >= LOCALTIMESTAMP(0) - '1 day'::INTERVAL", (error, result) => {
         if (error) throw Error(error.message);
         resolve(result.rows as any);
       });
