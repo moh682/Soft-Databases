@@ -12,6 +12,8 @@ export const REDIS_CONNECTION_URI =
 
 export const NEO4J_PORT = 5002;
 export const NEO4J_API = `localhost:${NEO4J_PORT}`;
+export const NEO4J_USERNAME = 'neo4j';
+export const NEO4J_PASSWORD = 'password';
 
 export const SQL_PORT = 5003;
 export const SQL_USERNAME = 'postgres';

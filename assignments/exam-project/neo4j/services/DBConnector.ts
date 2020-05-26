@@ -1,7 +1,8 @@
 import neo4j from 'neo4j-driver';
 import colors from 'colors';
+import { NEO4J_USERNAME, NEO4J_PASSWORD } from '../../constants';
 
-var driver = neo4j.driver('bolt://localhost', neo4j.auth.basic('neo4j', 'password'));
+var driver = neo4j.driver('bolt://localhost', neo4j.auth.basic(NEO4J_USERNAME, NEO4J_PASSWORD));
 const session = driver.session();
 
 (() => {
