@@ -14,7 +14,7 @@
     "node:redis": "ts-node ./redis/server.ts",
     "node:neo4j": "ts-node ./neo4j/server.ts",
     "node:postgresql": "ts-node ./postgresql/server.ts",
-    "killall:mac": "for run in {1..10}; do npm run killall node; done",
+    "killall:mac": "for run in {1..10}; do killall node; done",
     "killall:win": "taskkill /f /im node.exe"
   },
   "keywords": [],

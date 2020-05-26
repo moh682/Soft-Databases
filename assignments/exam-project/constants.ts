@@ -3,8 +3,9 @@ export const MONGO_DATABASE = 'posts';
 export const MONGO_API = `localhost:${MONGO_PORT}`;
 
 export const REDIS_PORT = 5001;
-export const REDIS_PASSWORD = 'password';
-export const REDIS_HOST = 'localhost';
+export const REDIS_DB_PORT = 12946;
+export const REDIS_PASSWORD = '21NjklaDIfFaEzvBuNeuJuZlSc93R19M';
+export const REDIS_HOST = 'redis-12946.c228.us-central1-1.gce.cloud.redislabs.com';
 export const REDIS_API = `localhost:${REDIS_PORT}`;
 export const REDIS_CONNECTION_URI =
   '21NjklaDIfFaEzvBuNeuJuZlSc93R19M@redis-12946.c228.us-central1-1.gce.cloud.redislabs.com:12946';
