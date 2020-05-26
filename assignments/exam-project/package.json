@@ -5,11 +5,17 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run start:mongo\" \"npm run start:redis\" \"npm run start:neo4j\" \"npm run start:postgresql\" ",
+    "dev": "concurrently \"npm run node:mongo\" \"npm run node:redis\" \"npm run node:neo4j\" \"npm run node:postgresql\" ",
     "start:mongo": "nodemon -e ts,js --exec ts-node ./mongo/server.ts",
     "start:redis": "nodemon -e ts,js --exec ts-node ./redis/server.ts",
     "start:neo4j": "nodemon -e ts,js --exec ts-node ./neo4j/server.ts",
     "start:postgresql": "nodemon -e ts,js --exec ts-node ./postgresql/server.ts",
-    "killall:mac": "for run in {1..20}; do npm run killall; done"
+    "node:mongo": "ts-node ./mongo/server.ts",
+    "node:redis": "ts-node ./redis/server.ts",
+    "node:neo4j": "ts-node ./neo4j/server.ts",
+    "node:postgresql": "ts-node ./postgresql/server.ts",
+    "killall:mac": "for run in {1..10}; do npm run killall node; done",
+    "killall:win": "taskkill /f /im node.exe"
   },
   "keywords": [],
   "author": "",
