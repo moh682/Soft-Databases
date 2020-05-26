@@ -10,7 +10,6 @@ connector.getPool().connect();
 const server = express();
 
 server.use(bodyParser.json());
-server.use(AuthenticationMiddleware);
-server.use('/logger', LoggerRoute);
+server.use('/logs', AuthenticationMiddleware, LoggerRoute);
 
 server.listen(SQL_PORT, () => console.log(`PostgreSQL server is listening on port ${SQL_PORT}`));

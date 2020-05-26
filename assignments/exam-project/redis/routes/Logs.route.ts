@@ -8,7 +8,10 @@ const route = express();
 route.get('/getAll', async (req, res, next) => {
   log(req.method, req.body);
   try {
-    const logs = await fetch(`${SQL_API}/logs/getAll`, { headers: { Origin: 'redis-server' } });
+    const logs = await fetch(`${SQL_API}/logs/getAll`, { headers: { origin: 'redis-server' } }).then(response =>
+      response.json(),
+    );
+    console.log(logs);
     return res.json(logs);
   } catch (ex) {
     console.log(ex);
@@ -19,7 +22,9 @@ route.get('/getAll', async (req, res, next) => {
 route.get('/getlast24h', async (req, res, next) => {
   log(req.method, req.body);
   try {
-    const logs = await fetch(`${SQL_API}/logs/getlast24h`, { headers: { Origin: 'redis-server' } });
+    const logs = await fetch(`${SQL_API}/logs/getlast24h`, { headers: { origin: 'redis-server' } }).then(response =>
+      response.json(),
+    );
     return res.json(logs);
   } catch (ex) {
     return res.sendStatus(500);

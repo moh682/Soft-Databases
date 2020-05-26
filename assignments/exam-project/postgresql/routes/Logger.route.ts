@@ -7,7 +7,8 @@ const route = express();
 
 const logginMapper = new LoggingMapper();
 route.post('/create', async (req, res, next) => {
-  const { body, method } = req.body as ILogger;
+  let { body, method } = req.body as ILogger;
+  body = Object.keys(body).length > 0 ? body : null;
   try {
     const isCreated = await logginMapper.createLog(method, JSON.stringify(body));
     if (!isCreated) return res.sendStatus(400);
