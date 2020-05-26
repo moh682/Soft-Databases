@@ -2,7 +2,7 @@ import { ILogger } from '../interfaces/ILogger';
 import fs from 'fs';
 import colors from 'colors';
 import connector from '../services/DBConnector';
-const { getPool, getClient } = connector;
+const { getPool } = connector;
 
 export default class LoggingMapper {
   public async getAllLogs(): Promise<ILogger[]> {

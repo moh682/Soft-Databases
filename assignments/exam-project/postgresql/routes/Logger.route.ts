@@ -23,7 +23,6 @@ route.get('/getAll', async (req, res, next) => {
     const logs = await logginMapper.getAllLogs();
     return res.json(logs);
   } catch (ex) {
-    console.log(ex);
     return res.sendStatus(500);
   }
 });
