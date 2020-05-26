@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:all": "concurrently \"npm run start:mongo\" \"npm run start:redis\" \"npm run start:neo4j\" \"npm run start:redis-server\"",
+    "start": "concurrently \"npm run start:mongo\" \"npm run start:redis\" \"npm run start:neo4j\" \"npm run start:postgresql\" ",
     "start:mongo": "nodemon -e ts,js --exec ts-node ./mongo/server.ts",
     "start:redis": "nodemon -e ts,js --exec ts-node ./redis/server.ts",
     "start:neo4j": "nodemon -e ts,js --exec ts-node ./neo4j/server.ts",
-    "start:redis-server": "redis-server"
+    "start:postgresql": "nodemon -e ts,js --exec ts-node ./postgresql/server.ts",
+    "killall:mac": "for run in {1..20}; do npm run killall; done"
   },
   "keywords": [],
   "author": "",

@@ -13,8 +13,8 @@ export const NEO4J_PORT = 5002;
 export const NEO4J_API = `localhost:${NEO4J_PORT}`;
 
 export const SQL_PORT = 5003;
-export const SQL_USERNAME = '';
-export const SQL_PASSWORD = '';
-export const SQL_DATABASE = '';
+export const SQL_USERNAME = 'postgres';
+export const SQL_PASSWORD = 'password';
+export const SQL_DATABASE = 'db_exam';
 
 export const TOKEN_SECRET = ')OnGC7l@GMb!AL%1h;"sl]~8]L4Bw_';
