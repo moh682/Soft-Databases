@@ -22,7 +22,6 @@
   "license": "ISC",
   "dependencies": {
     "@types/pg": "^7.14.3",
-    "batch": "^0.6.1",
     "body-parser": "^1.19.0",
     "colors": "^1.4.0",
     "concurrently": "^5.2.0",
