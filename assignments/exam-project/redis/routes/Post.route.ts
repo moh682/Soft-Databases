@@ -48,7 +48,6 @@ route.post('/create', async (req, res, next) => {
         Origin: 'redis-server',
       },
     }).then(response => {
-      console.log(response);
       return response;
     });
     return res.json({ id: postId });
