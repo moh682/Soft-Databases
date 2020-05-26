@@ -1,7 +1,7 @@
 import express from 'express';
-import colors from 'colors';
 import bodyParser from 'body-parser';
 import { AuthenticationMiddleware } from './middleware/Authentication.middleware';
+import { LoggerRoute } from './routes/Logger.route';
 import connector from './services/DBConnector';
 import { SQL_PORT } from '../constants';
 
@@ -11,5 +11,6 @@ const server = express();
 
 server.use(bodyParser.json());
 server.use(AuthenticationMiddleware);
+server.use('/logger', LoggerRoute);
 
 server.listen(SQL_PORT, () => console.log(`PostgreSQL server is listening on port ${SQL_PORT}`));

@@ -3,6 +3,6 @@ SELECT 'CREATE DATABASE db_exam' WHERE NOT EXISTS (SELECT FROM pg_database WHERE
 DROP TABLE IF EXISTS logs;
 CREATE TABLE logs (
   method VARCHAR(45),
-  date Date DEFAULT Date(),
+  date Date DEFAULT NOW(),
   body TEXT
 );

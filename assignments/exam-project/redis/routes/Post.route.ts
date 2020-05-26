@@ -1,10 +1,12 @@
 import express from 'express';
 import fetch from 'node-fetch';
 import { MONGO_API } from '../../constants';
+import { log } from '../utils';
 const route = express();
 
 route.get('/find/id/:id', async (req, res, next) => {
   const { id } = req.params;
+  log(req.method, req.body);
   try {
     const postId = await fetch(`${MONGO_API}/post/find/id/${id}`, { headers: { Origin: 'redis-server' } });
     return res.json(postId);
@@ -14,6 +16,7 @@ route.get('/find/id/:id', async (req, res, next) => {
 });
 
 route.get('/find/all', async (req, res, next) => {
+  log(req.method, req.body);
   try {
     const posts = await fetch(`${MONGO_API}/post/find/all`, { headers: { Origin: 'redis-server' } });
     return res.json(posts);
@@ -23,6 +26,7 @@ route.get('/find/all', async (req, res, next) => {
 });
 
 route.get('/find/all/id/:id', async (req, res, next) => {
+  log(req.method, req.body);
   const { id } = req.params;
   try {
     const postId = await fetch(`${MONGO_API}/post/find/all/id/${id}`, { headers: { Origin: 'redis-server' } });
@@ -33,6 +37,7 @@ route.get('/find/all/id/:id', async (req, res, next) => {
 });
 
 route.post('/create', async (req, res, next) => {
+  log(req.method, req.body);
   console.log('isCreating');
   try {
     const postId = await fetch(`${MONGO_API}/post/create`, {
@@ -53,6 +58,7 @@ route.post('/create', async (req, res, next) => {
 });
 
 route.delete('/delete', async (req, res, next) => {
+  log(req.method, req.body);
   const { content, owner } = req.body;
   try {
     const postId = await fetch(`${MONGO_API}/post/delete`, {

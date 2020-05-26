@@ -1,9 +1,11 @@
 import express from 'express';
 import fetch from 'node-fetch';
 import { NEO4J_API } from '../../constants';
+import { log } from 'console';
 const route = express();
 
 route.post('/create', async (req, res, next) => {
+  log(req.method, req.body);
   try {
     await fetch(`${NEO4J_API}/user/create`, {
       method: 'post',
@@ -19,6 +21,7 @@ route.post('/create', async (req, res, next) => {
 });
 
 route.get('/find/username/:username', async (req, res, next) => {
+  log(req.method, req.body);
   const { username } = req.params;
   try {
     const user = await fetch(`${NEO4J_API}/user/username/${username}`);
@@ -29,6 +32,7 @@ route.get('/find/username/:username', async (req, res, next) => {
 });
 
 route.post('/follow', async (req, res, next) => {
+  log(req.method, req.body);
   try {
     await await fetch(`${NEO4J_API}/user/follow`, {
       method: 'post',
