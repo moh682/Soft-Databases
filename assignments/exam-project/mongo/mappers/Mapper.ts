@@ -19,7 +19,6 @@ export class Mapper<T, U extends Document> {
     return new Promise(async (resolve, reject) => {
       return await this.model.insertMany(value, (error, docs) => {
         if (error) return console.log(error);
-        console.log(docs);
       });
     });
   }
