@@ -15,6 +15,14 @@ export class Mapper<T, U extends Document> {
       });
     });
   }
+  public async insertMany(value: T[]): Promise<Types.ObjectId> {
+    return new Promise(async (resolve, reject) => {
+      return await this.model.insertMany(value, (error, docs) => {
+        if (error) return console.log(error);
+        console.log(docs);
+      });
+    });
+  }
   public async getById(id: Types.ObjectId): Promise<T> {
     return (await this.model.findById(id)) as any;
   }
