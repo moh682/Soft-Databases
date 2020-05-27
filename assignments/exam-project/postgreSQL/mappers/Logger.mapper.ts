@@ -7,7 +7,7 @@ const { getPool } = connector;
 export default class LoggingMapper {
   public async getAllLogs(): Promise<ILogger[]> {
     return new Promise((resolve, reject) => {
-      getPool().query('SELECT * FROM logs', (error, result) => {
+      getPool().query('SELECT * FROM db_exam.logs', (error, result) => {
         if (error) throw Error(error.message);
         resolve(result.rows as any);
       });
@@ -15,15 +15,18 @@ export default class LoggingMapper {
   }
   public async getLast24Hours(): Promise<ILogger> {
     return new Promise((resolve, reject) => {
-      getPool().query("SELECT * FROM logs WHERE date >= LOCALTIMESTAMP(0) - '1 day'::INTERVAL", (error, result) => {
-        if (error) throw Error(error.message);
-        resolve(result.rows as any);
-      });
+      getPool().query(
+        "SELECT * FROM db_exam.logs WHERE date >= LOCALTIMESTAMP(0) - '1 day'::INTERVAL",
+        (error, result) => {
+          if (error) throw Error(error.message);
+          resolve(result.rows as any);
+        },
+      );
     });
   }
   public async createLog(method: string, body: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      getPool().query('INSERT INTO logs (method,body) values ($1, $2)', [method, body], (error, result) => {
+      getPool().query('INSERT INTO db_exam.logs (method,body) values ($1, $2)', [method, body], (error, result) => {
         if (error) throw Error(error.message);
         resolve(true);
       });
