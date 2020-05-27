@@ -28,7 +28,7 @@ const submitUsersToDatabase = async () => {
     await tx.run('MATCH (n) DETACH DELETE n');
     await tx.run(
       `FOREACH (props IN $users| 
-						CREATE (n:user{ username:props.username, password:props.password }))`,
+						CREATE (n:User{ username:props.username, password:props.password }))`,
       { users: users },
     );
   });
@@ -38,20 +38,27 @@ const sumbitFollowersToDatabase = async () => {
   const users = await getUsers();
   const followers = users.map(v => {
     return {
-      username1: users[Math.floor(Math.random() * 6000)].username,
-      username2: users[Math.floor(Math.random() * 6000)].username,
+      username1: users[Math.floor(Math.random() * 8000)].username,
+      username2: users[Math.floor(Math.random() * 8000)].username,
     };
   });
-  // await connection.writeTransaction(async tx => {
-  //   await tx.run(
-  //     `FOREACH (props IN $users|
-  // 			Match(a:user {username: props.username1}),(b:user {username: props.username2}) CREATE(a)-[r:FOLLOW]->(b)`,
-  //     { users: followers },
-  //   );
-  // });
-  followers.forEach(f => {
-    userMapper.follow(f.username1, f.username2);
+  await connection.writeTransaction(async tx => {
+    const res = await tx.run(
+      `UNWIND $pairs AS pair 
+			Match(a:User{username: pair.username1}),(b:User{username: pair.username2})
+			CREATE (a)-[:FOLLOW]->(b)`,
+      { pairs: followers },
+    );
+    console.log(res);
   });
+
+  // return new Promise(async resolve => {
+  //   for (let index = 0; index < followers.length; index++) {
+  //     const { username1, username2 } = followers[index];
+  //     await userMapper.follow(username1, username2);
+  //   }
+  return Promise.resolve();
+  // });
 };
 
 const submitPostsToDatabase = async () => {
@@ -69,6 +76,6 @@ const submitPostsToDatabase = async () => {
 
 submitPostsToDatabase();
 setTimeout(async () => {
-  await submitUsersToDatabase().finally(() => sumbitFollowersToDatabase());
+  await submitUsersToDatabase().finally(async () => await sumbitFollowersToDatabase());
   process.exit(0);
 }, 500);

@@ -5,7 +5,7 @@ class UserMapper {
   create = async (username: string, password: string) => {
     return new Promise(async resolve => {
       await connection.writeTransaction(async tx => {
-        const res: any = await tx.run('CREATE(n:user{username: $username, password: $password}) return n', {
+        const res: any = await tx.run('CREATE(n:User{username: $username, password: $password}) return n', {
           username,
           password,
         });
@@ -18,7 +18,7 @@ class UserMapper {
     return new Promise(async resolve => {
       await connection.writeTransaction(async tx => {
         try {
-          const res: any = await tx.run('Match(n:user{username: $userNameParam}) return n', {
+          const res: any = await tx.run('Match(n:User{username: $userNameParam}) return n', {
             userNameParam: username,
           });
           tx.commit();
@@ -34,7 +34,7 @@ class UserMapper {
     return new Promise(async resolve => {
       await connection.writeTransaction(async tx => {
         try {
-          const res: any = await tx.run('Match(n:user) return n');
+          const res: any = await tx.run('Match(n:User) return n');
           tx.commit();
           resolve(res.records.map(record => record?._fields[0]?.properties));
         } catch (error) {
@@ -48,13 +48,12 @@ class UserMapper {
     return new Promise(async resolve => {
       await connection.writeTransaction(async tx => {
         const res = await tx.run(
-          'Match(a:user{username: $userNameParam1}),(b:user{username: $userNameParam2}) MERGE(a)-[r:FOLLOW]->(b) return a,b',
+          'Match(a:User{username: $userNameParam1}),(b:user{username: $userNameParam2}) MERGE(a)-[r:FOLLOW]->(b) return a,b',
           {
             userNameParam1: username,
             userNameParam2: userToFollow,
           },
         );
-        tx.commit();
         resolve(res);
       });
     });

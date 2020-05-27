@@ -34,6 +34,7 @@ route.get('/find/all', async (req, res, next) => {
 
 route.post('/follow', async (req, res, next) => {
   const { username, following } = req.body;
+  console.log(username, following);
   try {
     const response: any = await userMapper.follow(username, following);
     if (response.records.length === 0) return res.sendStatus(400);
