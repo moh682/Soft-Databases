@@ -54,6 +54,7 @@ class UserMapper {
             userNameParam2: userToFollow,
           },
         );
+        tx.commit();
         resolve(res);
       });
     });
