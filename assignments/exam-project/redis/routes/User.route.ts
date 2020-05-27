@@ -30,6 +30,7 @@ route.post('/follow', async (req, res, next) => {
   log(req.method, req.body);
   try {
     const hasCreated = await post(`${NEO4J_API}/user/follow`, req.body).then(response => response.status === 200);
+    console.log(hasCreated);
     if (hasCreated) return res.sendStatus(200);
     return res.sendStatus(400);
   } catch (error) {

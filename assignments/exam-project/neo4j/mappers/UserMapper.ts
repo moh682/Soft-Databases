@@ -48,12 +48,13 @@ class UserMapper {
     return new Promise(async resolve => {
       await connection.writeTransaction(async tx => {
         const res = await tx.run(
-          'Match(a:User{username: $userNameParam1}),(b:user{username: $userNameParam2}) MERGE(a)-[r:FOLLOW]->(b) return a,b',
+          'Match(a:User{username: $userNameParam1}),(b:User{username: $userNameParam2}) MERGE(a)-[r:FOLLOW]->(b) return a,b',
           {
             userNameParam1: username,
             userNameParam2: userToFollow,
           },
         );
+        console.log(res);
         resolve(res);
       });
     });
