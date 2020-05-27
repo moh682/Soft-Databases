@@ -11,7 +11,7 @@ export default {
       password: SQL_PASSWORD,
       database: SQL_DATABASE,
     });
-    pool.on('connect', () => {
+    pool.once('connect', () => {
       console.log(colors.green('PostgreSQL is connected'));
     });
     return pool;

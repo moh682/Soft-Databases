@@ -14,7 +14,7 @@ route.use(async (req, res, next) => {
   if (!isVerified) return res.sendStatus(406);
 
   const token_in_redis = await sessionMapper.get(`name:${isVerified.username}`);
-  if (token_in_redis !== token) res.sendStatus(407);
+  if (token_in_redis !== token) return res.sendStatus(407);
   next();
 });
 
