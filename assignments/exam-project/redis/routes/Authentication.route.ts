@@ -19,7 +19,6 @@ route.post('/login', async (req, res, next) => {
 
 route.post('/register', async (req, res, next) => {
   const { username, password } = req.body;
-  console.log('is registering');
   log(req.method, req.body);
   try {
     const token = await authenticationLogic.register(username, password);

@@ -23,7 +23,6 @@ route.get('/find/all', async (req, res, next) => {
     const posts = await get(`${MONGO_API}/post/find/all`).then(response => {
       return response.json();
     });
-    console.log(cyan(posts));
     return res.json(posts);
   } catch (error) {
     console.log(error);

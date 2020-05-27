@@ -34,7 +34,7 @@ export default class LoggingMapper {
       var sql = fs.readFileSync(__dirname + '/../sql.sql').toString();
       getPool().query(sql, function (err, result) {
         if (err) {
-          console.log('error: ', err);
+          console.error(err);
           process.exit(1);
         }
         console.log(colors.blue('injecting file succeeded'));

@@ -14,7 +14,6 @@ route.post('/create', async (req, res, next) => {
     if (!isCreated) return res.sendStatus(400);
     return res.sendStatus(201);
   } catch (ex) {
-    console.log(ex);
     return res.sendStatus(500);
   }
 });
