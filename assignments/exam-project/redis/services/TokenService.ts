@@ -7,17 +7,15 @@ class TokenService {
       issuer: 'exam-project',
     });
   };
-  verify = (token: string): boolean => {
+  verify = (token: string): Object => {
     let payload: Object;
     try {
       payload = verify(token, TOKEN_SECRET);
     } catch (e) {
       return false;
     }
-    if (!payload) return false;
-    return true;
+    return payload;
   };
-
   decode = (token: string): Object => {
     return decode(token);
   };

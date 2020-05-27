@@ -21,6 +21,7 @@ class UserMapper {
           const res: any = await tx.run('Match(n:user{username: $userNameParam}) return n', {
             userNameParam: username,
           });
+          tx.commit();
           resolve(res?.records[0]?._fields[0]?.properties);
         } catch (error) {
           console.log(error);
@@ -34,6 +35,7 @@ class UserMapper {
       await connection.writeTransaction(async tx => {
         try {
           const res: any = await tx.run('Match(n:user) return n');
+          tx.commit();
           resolve(res.records.map(record => record?._fields[0]?.properties));
         } catch (error) {
           console.log(error);
@@ -52,7 +54,7 @@ class UserMapper {
             userNameParam2: userToFollow,
           },
         );
-        console.log(res);
+        tx.commit();
         resolve(res);
       });
     });

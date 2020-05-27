@@ -13,6 +13,7 @@ const session = driver.session();
     } else {
       console.log(colors.red('Neo4j is not connected'));
     }
+    tx.commit();
   });
 })();
 
