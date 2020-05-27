@@ -3,9 +3,15 @@ import { sign, verify, decode } from 'jsonwebtoken';
 
 class TokenService {
   create = (data: Object) => {
-    return sign({ ...data }, TOKEN_SECRET, {
-      issuer: 'exam-project',
-    });
+    return sign(
+      {
+        username: data,
+      },
+      TOKEN_SECRET,
+      {
+        issuer: 'exam-project',
+      },
+    );
   };
   verify = (token: string): Object => {
     let payload: Object;
@@ -14,6 +20,7 @@ class TokenService {
     } catch (e) {
       return false;
     }
+    console.log(payload);
     return payload;
   };
   decode = (token: string): Object => {

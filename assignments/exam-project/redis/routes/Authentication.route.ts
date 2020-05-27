@@ -12,6 +12,7 @@ route.post('/login', async (req, res, next) => {
     if (!token) return res.sendStatus(400);
     return res.json(token);
   } catch (ex) {
+    console.log(ex);
     return res.sendStatus(500);
   }
 });
