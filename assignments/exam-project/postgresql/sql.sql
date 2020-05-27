@@ -1,3 +1,6 @@
+DROP DATABASE IF EXISTS db_exam;
+CREATE DATABASE db_exam;
+
 SELECT 'CREATE DATABASE db_exam' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'db_exam');
 
 DROP TABLE IF EXISTS logs;
