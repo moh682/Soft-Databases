@@ -14,7 +14,7 @@ const postMapper = new PostMapper();
 const getUsers = async (): Promise<IUser[]> => {
   const users_text = await readFileSync(__dirname + '/users.json', 'utf8');
   return JSON.parse(users_text).map(user => {
-    return { username: user.username, password: user.password };
+    return { username: user[0], password: user[1] };
   });
 };
 
@@ -37,7 +37,7 @@ const submitUsersToDatabase = async () => {
 
 const sumbitFollowersToDatabase = async () => {
   const users = await getUsers();
-  const followers = users.map(v => {
+  const followers = users.slice(0, 2000).map(v => {
     return {
       username1: users[Math.floor(Math.random() * 1000)].username,
       username2: users[Math.floor(Math.random() * 1000)].username,
@@ -69,7 +69,9 @@ const submitPostsToDatabase = async () => {
 
 submitPostsToDatabase();
 setTimeout(async () => {
+  console.time();
   await submitUsersToDatabase().finally(async () => await sumbitFollowersToDatabase());
   console.warn(colors.blue('INSERTION OF DATA DONE!'));
+  console.timeEnd();
   process.exit(0);
 }, 500);
