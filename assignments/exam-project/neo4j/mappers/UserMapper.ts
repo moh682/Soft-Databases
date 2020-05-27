@@ -54,7 +54,6 @@ class UserMapper {
             userNameParam2: userToFollow,
           },
         );
-        console.log(res);
         resolve(res);
       });
     });
