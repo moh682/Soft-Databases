@@ -17,11 +17,16 @@ export class DBConnector {
   }
 
   public async connect() {
-    return await mongoose.connect(`mongodb://localhost:27017/${MONGO_DATABASE}`, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-    });
+    return await mongoose
+      .connect(`mongodb://localhost:27017/${MONGO_DATABASE}`, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+      })
+      .then(connecton => {
+        connecton.Collection.createIndex({ owner: 1 });
+        return connecton;
+      });
   }
 }
 
