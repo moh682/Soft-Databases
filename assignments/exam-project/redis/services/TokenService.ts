@@ -20,7 +20,6 @@ class TokenService {
     } catch (e) {
       return false;
     }
-    console.log(payload);
     return payload;
   };
   decode = (token: string): Object => {
