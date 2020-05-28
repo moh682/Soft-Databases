@@ -1,5 +1,4 @@
 import { connection } from '../services/DBConnector';
-import { IUser } from '../interfaces/IUser';
 
 class UserMapper {
   create = async (username: string, password: string) => {
@@ -59,6 +58,7 @@ class UserMapper {
       });
     });
   };
+
   getMostFollowed = async () => {
     return new Promise(async resolve => {
       await connection.writeTransaction(async tx => {
@@ -80,6 +80,7 @@ class UserMapper {
       });
     });
   };
+
   getMostImportant = async () => {
     return new Promise(async resolve => {
       await connection.writeTransaction(async tx => {
