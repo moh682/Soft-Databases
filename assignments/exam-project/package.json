@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"npm run start:mongo\" \"npm run start:redis\" \"npm run start:neo4j\" \"npm run start:postgresql\" ",
-    "start": "npm run generate:data && concurrently \"npm run node:mongo\" \"npm run node:redis\" \"npm run node:neo4j\" \"npm run node:postgresql\" ",
+    "start": "concurrently \"npm run node:mongo\" \"npm run node:redis\" \"npm run node:neo4j\" \"npm run node:postgresql\" ",
     "start:mongo": "nodemon -e ts,js --exec ts-node ./mongo/server.ts",
     "start:redis": "nodemon -e ts,js --exec ts-node ./redis/server.ts",
     "start:neo4j": "nodemon -e ts,js --exec ts-node ./neo4j/server.ts",

@@ -32,11 +32,33 @@ route.get('/find/all', async (req, res, next) => {
   }
 });
 
+route.get('/mostImportant', async (req, res, next) => {
+  try {
+    const result: any = await userMapper.getMostImportant();
+    if (result.length === 0) return res.sendStatus(400);
+    return res.json(result);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
+
+route.get('/mostFollowed', async (req, res, next) => {
+  try {
+    const result: any = await userMapper.getMostFollowed();
+    if (result.length === 0) return res.sendStatus(400);
+    return res.json(result);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
+
 route.post('/follow', async (req, res, next) => {
   const { username, following } = req.body;
   try {
     const response: any = await userMapper.follow(username, following);
-    if (response.records.length === 0) return res.sendStatus(400);
+    if (response.length === 0) return res.sendStatus(400);
     return res.sendStatus(200);
   } catch (error) {
     return res.sendStatus(500);

@@ -47,4 +47,30 @@ route.get('/find/all', async (req, res, next) => {
   }
 });
 
+route.get('/mostImportant', async (req, res, next) => {
+  try {
+    const response: any = await get(`${NEO4J_API}/user/mostImportant`).then(response => {
+      console.log(response);
+      return response.json();
+    });
+
+    if (response.length === 0) return res.sendStatus(400);
+    return res.json(response);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
+
+route.get('/mostFollowed', async (req, res, next) => {
+  try {
+    const response: any = await get(`${NEO4J_API}/user/mostFollowed`).then(response => response.json());
+    if (response.length === 0) return res.sendStatus(400);
+    return res.json(response);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
+
 export { route as UserRoute };

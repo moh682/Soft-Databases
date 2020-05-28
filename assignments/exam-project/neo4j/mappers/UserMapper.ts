@@ -59,6 +59,51 @@ class UserMapper {
       });
     });
   };
+  getMostFollowed = async () => {
+    return new Promise(async resolve => {
+      await connection.writeTransaction(async tx => {
+        const res = await tx.run(
+          `MATCH (n:User)<-[r]-(x)
+					RETURN n.username as username, COUNT(r) as followers
+					ORDER BY COUNT(r) DESC
+					LIMIT 10`,
+        );
+        tx.commit();
+        resolve(
+          res.records.map((record: any) => {
+            return {
+              username: record?._fields[0],
+              followers: record?._fields[1].low,
+            };
+          }),
+        );
+      });
+    });
+  };
+  getMostImportant = async () => {
+    return new Promise(async resolve => {
+      await connection.writeTransaction(async tx => {
+        const res = await tx.run(
+          `CALL gds.alpha.articleRank.stream({
+						nodeProjection: 'User',
+						relationshipProjection: 'FOLLOW',
+						maxIterations: 20, dampingFactor: 0.85 })
+					YIELD nodeId, score
+					RETURN gds.util.asNode(nodeId).username AS name, score
+					ORDER BY score DESC, name ASC LIMIT 10`,
+        );
+        tx.commit();
+        resolve(
+          res.records.map((record: any) => {
+            return {
+              username: record?._fields[0],
+              score: record?._fields[1],
+            };
+          }),
+        );
+      });
+    });
+  };
 }
 
 export { UserMapper };
